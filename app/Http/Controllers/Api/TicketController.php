@@ -17,9 +17,15 @@ class TicketController extends Controller
         //
     }
 
-    public function index(Request $request): string{
+    public function index(Request $request): string
+    {
         $tickets = $this->ticketService->getTickets($request->query());
         return json_encode($tickets);
+    }
+
+    public function countIndex(Request $request): int
+    {
+        return $this->ticketService->getTicketCount($request->query());
     }
 
     public function show(int $id): string{

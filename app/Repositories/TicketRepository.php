@@ -20,6 +20,12 @@ class TicketRepository
         return $query->get();
     }
 
+    public function getFilteredCount(array $filters): int
+    {
+        $tickets = $this->getAll($filters);
+        return $tickets->count();
+    }
+
     public function getById($id){
         //
     }

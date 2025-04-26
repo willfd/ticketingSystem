@@ -23,6 +23,13 @@ class PostRequest extends FormRequest
         ];
     }
 
+    public function messages(): array
+    {
+        return [
+            //
+        ];
+    }
+
     protected function failedValidation(Validator $validator)
     {
         // Create a custom response for validation failures

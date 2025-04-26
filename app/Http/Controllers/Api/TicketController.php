@@ -11,6 +11,10 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
+
+// @Todo make status own table to allow status history
+// @Todo decouple Assignee for same reason as status to allow history and keep track who works on ticket
+
 class TicketController extends Controller
 {
     public function __construct(protected TicketService $ticketService) {

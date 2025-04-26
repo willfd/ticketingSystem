@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\TicketRequest\PatchRequest;
 use App\Http\Requests\TicketRequest\PostRequest;
 use App\Models\Ticket;
 use Illuminate\Http\Response;
@@ -15,12 +16,12 @@ class TicketController extends Controller
     }
 
     public function index(): string{
-        $tickets = Ticket::query()->with('messages')->get();
+        $tickets = Ticket::query()->with(['messages','user','assignee'])->get();
         return json_encode($tickets);
     }
 
     public function show(int $id): string{
-        $ticket = Ticket::query()->with('messages')->find($id);
+        $ticket = Ticket::query()->with(['messages','user','assignee'])->find($id);
         return json_encode($ticket);
     }
 
@@ -35,12 +36,12 @@ class TicketController extends Controller
         return $ticket->save();
     }
 
-    public function update(int $id, PostRequest $request): string{
+    public function update(int $id, PatchRequest $request): string{
         $ticket = Ticket::query()->find($id);
         if(!$ticket){
             return new Response(ResponseAlias::HTTP_NOT_FOUND, 'Ticket not found for id '.$id);
         }
-        $ticket->title = $request->all()['title'];
+        $ticket->assignee_id = $request->all()['assignee_id'];
         return $ticket->save();
     }
 

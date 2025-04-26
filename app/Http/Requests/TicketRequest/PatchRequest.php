@@ -7,7 +7,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\ValidationException;
 
-class PostRequest extends FormRequest
+class PatchRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -17,9 +17,8 @@ class PostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => 'required|integer|exists:users,id',
             'assignee_id' => 'nullable|integer|exists:users,id',
-            'status' => 'required|string|in:new, processing, pending, awaiting, resolved, expired'
+            'status' => 'nullable|string|in:new, processing, pending, awaiting, resolved, expired'
         ];
     }
 

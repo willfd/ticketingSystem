@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\MessageController;
 use App\Http\Controllers\Api\TicketController;
 use Illuminate\Support\Facades\Route;
 
@@ -9,5 +10,13 @@ Route::prefix('tickets')->group(function () {
     Route::post('', [TicketController::class, 'create']);
     Route::patch('/{id}', [TicketController::class, 'update']);
     Route::delete('/{id}', [TicketController::class, 'destroy']);
+});
+
+Route::prefix('messages')->group(function () {
+    Route::get('', [MessageController::class, 'index']);
+    Route::get('/{id}', [MessageController::class, 'show']);
+    Route::post('', [MessageController::class, 'create']);
+    Route::patch('/{id}', [MessageController::class, 'update']);
+    Route::delete('/{id}', [MessageController::class, 'destroy']);
 });
 

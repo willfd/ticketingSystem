@@ -34,10 +34,11 @@ class Ticket extends Model
     {
         return [
             'user_id' => 'integer',
-            'status' => 'string',
             'assignee_id' => 'integer'
         ];
     }
+
+    protected $appends = ['currentStatus'];
 
     public function user(): hasOne
     {
@@ -52,5 +53,16 @@ class Ticket extends Model
     public function messages(): HasMany
     {
         return $this->hasMany(Message::class, 'ticket_id', 'id');
+    }
+
+    public function statuses(): HasMany
+    {
+        return $this->hasMany(Status::class, 'ticket_id', 'id');
+    }
+
+    public function getCurrentStatusAttribute(): string
+    {
+        $latestStatus = $this->statuses()->latest()->first()->status;
+        return $latestStatus? : 'new';
     }
 }

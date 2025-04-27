@@ -13,7 +13,7 @@ class TicketRepository
 
     public function getAll(array $filters): Collection
     {
-        $query = Ticket::query()->with(['messages','user','assignee']);
+        $query = Ticket::query()->with(['messages','user','assignee','statuses']);
         foreach($filters as $key => $value) {
             $query->where($key, $value);
         }

@@ -33,7 +33,7 @@ class TicketController extends Controller
     }
 
     public function show(int $id): string{
-        $ticket = Ticket::query()->with(['messages','user','assignee'])->find($id);
+        $ticket = Ticket::query()->with(['messages','user','assignee','statuses'])->find($id);
         return json_encode($ticket);
     }
 

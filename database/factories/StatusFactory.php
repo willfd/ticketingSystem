@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends Factory<Message>
  */
-class MessageFactory extends Factory
+class StatusFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -21,9 +21,7 @@ class MessageFactory extends Factory
     {
         return [
             'ticket_id' => Ticket::factory(),
-            'user_id' => User::factory(),
-            'title' => fake()->title(),
-            'message' => fake()->text(),
+            'status' => fake()->randomElement(['new', 'processing', 'pending', 'awaiting', 'resolved', 'expired'])
         ];
     }
 

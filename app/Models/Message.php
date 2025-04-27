@@ -20,6 +20,7 @@ class Message extends Model
      */
     protected $fillable = [
         'ticket_id',
+        'user_id',
         'title',
         'message'
     ];
@@ -34,6 +35,7 @@ class Message extends Model
     {
         return [
             'ticket_id' => 'integer',
+            'user_id' => 'integer',
             'title' => 'string',
             'message' => 'string'
         ];
@@ -47,5 +49,10 @@ class Message extends Model
     public function attachments(): HasMany
     {
         return $this->hasMany(Attachment::class, 'message_id', 'id');
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }

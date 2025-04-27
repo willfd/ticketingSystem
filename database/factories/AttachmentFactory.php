@@ -24,7 +24,7 @@ class AttachmentFactory extends Factory
     public function definition(): array
     {
         return [
-            'ticket_id' => new Message(),
+            'ticket_id' => Message::factory(),
             'url' => fake()->url(),
             'type' => fake()->randomElement(['image', 'pdf', 'video']),
         ];

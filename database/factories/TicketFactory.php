@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Ticket;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -23,9 +24,9 @@ class TicketFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => new User(),
+            'user_id' => User::factory(),
             'status' => fake()->randomElement(['new', 'processing', 'pending', 'awaiting', 'resolved', 'expired']),
-            'assignee_id' => new User()
+            'assignee_id' => User::factory(),
         ];
     }
 

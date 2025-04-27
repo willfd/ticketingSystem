@@ -15,7 +15,17 @@ class TicketRepository
     {
         $query = Ticket::query()->with(['messages','user','assignee','statuses']);
         foreach($filters as $key => $value) {
-            $query->where($key, $value);
+            switch ($key) {
+                case 'currentStatus':
+                    $query->whereHas('currentStatus', function($status) use($value){
+                        $status->where('status', $value);
+                    });
+                    break;
+
+                default:
+                    $query->where($key, $value);
+                    break;
+            }
         }
         return $query->get();
     }

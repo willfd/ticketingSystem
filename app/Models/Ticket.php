@@ -60,6 +60,11 @@ class Ticket extends Model
         return $this->hasMany(Status::class, 'ticket_id', 'id');
     }
 
+    public function currentStatus(): hasOne
+    {
+        return  $this->hasOne(Status::class, 'ticket_id', 'id')->latest();
+    }
+
     public function getCurrentStatusAttribute(): string
     {
         $latestStatus = $this->statuses()->latest()->first()->status;

@@ -2,14 +2,14 @@
 
 namespace Database\Factories;
 
+use App\Models\Status;
 use App\Models\Ticket;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<Ticket>
+ * @extends Factory<Status>
  */
-class TicketFactory extends Factory
+class StatusFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,7 +19,8 @@ class TicketFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => User::factory()
+            'ticket_id' => Ticket::factory(),
+            'status' => fake()->randomElement(['new', 'processing', 'pending', 'awaiting', 'resolved', 'expired'])
         ];
     }
 

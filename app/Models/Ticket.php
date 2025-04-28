@@ -20,8 +20,7 @@ class Ticket extends Model
      */
     protected $fillable = [
         'user_id',
-        'status',
-        'assignee_id'
+        'status'
     ];
 
 
@@ -34,23 +33,51 @@ class Ticket extends Model
     {
         return [
             'user_id' => 'integer',
-            'status' => 'string',
             'assignee_id' => 'integer'
         ];
     }
+
+    protected $appends = ['currentStatus','currentAssignee'];
 
     public function user(): hasOne
     {
         return $this->hasOne(User::class, 'id', 'user_id');
     }
 
-    public function assignee(): hasOne
+    public function assignees(): hasMany
     {
-        return $this->hasOne(User::class, 'id', 'assignee_id');
+        return $this->hasMany(Assignee::class, 'ticket_id', 'id');
+    }
+
+    // Used for query current assignee
+    public function currentAssignee(): hasOne
+    {
+        return  $this->hasOne(Assignee::class, 'ticket_id', 'id')->latest();
+    }
+
+    public function getCurrentAssigneeAttribute(): Assignee | null
+    {
+        return $this->assignees()->where('active',true)->latest()->first();
     }
 
     public function messages(): HasMany
     {
         return $this->hasMany(Message::class, 'ticket_id', 'id');
+    }
+
+    public function statuses(): HasMany
+    {
+        return $this->hasMany(Status::class, 'ticket_id', 'id');
+    }
+
+    public function currentStatus(): hasOne
+    {
+        return  $this->hasOne(Status::class, 'ticket_id', 'id')->latest();
+    }
+
+    public function getCurrentStatusAttribute(): string
+    {
+        $latestStatus = $this->statuses()->latest()->first()->status;
+        return $latestStatus? : 'new';
     }
 }

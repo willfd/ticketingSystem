@@ -2,16 +2,18 @@
 
 namespace App\Models;
 
-use Database\Factories\MessageFactory;
+use Database\Factories\AssigneeFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class Message extends Model
+class Assignee extends Model
 {
-    /** @use HasFactory<MessageFactory> */
+    /** @use HasFactory<AssigneeFactory> */
     use HasFactory;
+
+    protected $table = 'ticket_assignees';
 
     /**
      * The attributes that are mass assignable.
@@ -20,9 +22,7 @@ class Message extends Model
      */
     protected $fillable = [
         'ticket_id',
-        'user_id',
-        'title',
-        'message'
+        'user_id'
     ];
 
 
@@ -36,8 +36,7 @@ class Message extends Model
         return [
             'ticket_id' => 'integer',
             'user_id' => 'integer',
-            'title' => 'string',
-            'message' => 'string'
+            'active' => 'boolean'
         ];
     }
 
@@ -46,12 +45,7 @@ class Message extends Model
         return $this->belongsTo(Ticket::class, 'ticket_id', 'id');
     }
 
-    public function attachments(): HasMany
-    {
-        return $this->hasMany(Attachment::class, 'message_id', 'id');
-    }
-
-    public function user(): BelongsTo
+    public function assignee(): belongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }

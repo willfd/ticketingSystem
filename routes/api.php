@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('tickets')->group(function () {
     Route::get('', [TicketController::class, 'index']);
+    Route::get('/count', [TicketController::class, 'countIndex']);
     Route::get('/{id}', [TicketController::class, 'show']);
     Route::post('', [TicketController::class, 'create']);
     Route::patch('/{id}', [TicketController::class, 'update']);

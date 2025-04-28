@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Message;
 use App\Models\Ticket;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -12,11 +13,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class MessageFactory extends Factory
 {
     /**
-     * The current password being used by the factory.
-     */
-    protected static ?string $password;
-
-    /**
      * Define the model's default state.
      *
      * @return array<string, mixed>
@@ -24,7 +20,8 @@ class MessageFactory extends Factory
     public function definition(): array
     {
         return [
-            'ticket_id' => new Ticket(),
+            'ticket_id' => Ticket::factory(),
+            'user_id' => User::factory(),
             'title' => fake()->title(),
             'message' => fake()->text(),
         ];

@@ -12,11 +12,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class AttachmentFactory extends Factory
 {
     /**
-     * The current password being used by the factory.
-     */
-    protected static ?string $password;
-
-    /**
      * Define the model's default state.
      *
      * @return array<string, mixed>
@@ -24,7 +19,7 @@ class AttachmentFactory extends Factory
     public function definition(): array
     {
         return [
-            'ticket_id' => new Message(),
+            'ticket_id' => Message::factory(),
             'url' => fake()->url(),
             'type' => fake()->randomElement(['image', 'pdf', 'video']),
         ];

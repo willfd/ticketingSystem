@@ -2,13 +2,12 @@
 
 namespace Database\Factories;
 
-use App\Models\Message;
+use App\Models\Status;
 use App\Models\Ticket;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<Message>
+ * @extends Factory<Status>
  */
 class StatusFactory extends Factory
 {

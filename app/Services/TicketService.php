@@ -23,4 +23,9 @@ class TicketService
         $filters = collect($params);
         return $this->repository->getFilteredCount($filters->all());
     }
+
+    public function getById(int $id): ?Ticket
+    {
+        return $this->repository->getById($id);
+    }
 }

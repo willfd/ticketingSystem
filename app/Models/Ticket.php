@@ -20,8 +20,7 @@ class Ticket extends Model
      */
     protected $fillable = [
         'user_id',
-        'status',
-        'assignee_id'
+        'status'
     ];
 
 
@@ -38,16 +37,27 @@ class Ticket extends Model
         ];
     }
 
-    protected $appends = ['currentStatus'];
+    protected $appends = ['currentStatus','currentAssignee'];
 
     public function user(): hasOne
     {
         return $this->hasOne(User::class, 'id', 'user_id');
     }
 
-    public function assignee(): hasOne
+    public function assignees(): hasMany
     {
-        return $this->hasOne(User::class, 'id', 'assignee_id');
+        return $this->hasMany(Assignee::class, 'ticket_id', 'id');
+    }
+
+    // Used for query current assignee
+    public function currentAssignee(): hasOne
+    {
+        return  $this->hasOne(Assignee::class, 'ticket_id', 'id')->latest();
+    }
+
+    public function getCurrentAssigneeAttribute(): Assignee | null
+    {
+        return $this->assignees()->where('active',true)->latest()->first();
     }
 
     public function messages(): HasMany

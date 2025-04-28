@@ -2,14 +2,15 @@
 
 namespace Database\Factories;
 
+use App\Models\Assignee;
 use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<Ticket>
+ * @extends Factory<Assignee>
  */
-class TicketFactory extends Factory
+class AssigneeFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,7 +20,9 @@ class TicketFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => User::factory()
+            'ticket_id' => Ticket::factory(),
+            'user_id' => User::factory(),
+            'active' => fake()->boolean,
         ];
     }
 

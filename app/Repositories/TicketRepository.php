@@ -13,7 +13,7 @@ class TicketRepository
 
     public function getAll(array $filters): Collection
     {
-        $query = Ticket::query()->with(['messages','user','assignee','statuses']);
+        $query = Ticket::query()->with(['messages','user','statuses','assignees']);
         foreach($filters as $key => $value) {
             switch ($key) {
                 case 'currentStatus':
@@ -36,8 +36,10 @@ class TicketRepository
         return $tickets->count();
     }
 
-    public function getById($id){
-        //
+    public function getById($id): ?Ticket
+    {
+        $query = Ticket::query()->with(['messages','user','statuses','assignees']);
+        return $query->where('id',$id)->first();
     }
 
     public function create($data){

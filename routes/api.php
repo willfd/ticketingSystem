@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\MessageController;
+use App\Http\Controllers\Api\StatusController;
 use App\Http\Controllers\Api\TicketController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,5 +20,10 @@ Route::prefix('messages')->group(function () {
     Route::post('', [MessageController::class, 'create']);
     Route::patch('/{id}', [MessageController::class, 'update']);
     Route::delete('/{id}', [MessageController::class, 'destroy']);
+});
+
+Route::prefix('statuses')->group(function () {
+    Route::get('', [StatusController::class, 'index']);
+    Route::get('available', [StatusController::class, 'availableStatuses']);
 });
 

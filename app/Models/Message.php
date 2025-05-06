@@ -41,6 +41,8 @@ class Message extends Model
         ];
     }
 
+    protected $appends = ['userEmail'];
+
     public function ticket(): belongsTo
     {
         return $this->belongsTo(Ticket::class, 'ticket_id', 'id');
@@ -54,5 +56,10 @@ class Message extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function getUserEmailAttribute(): string
+    {
+        return $this->user()->first()->email;
     }
 }

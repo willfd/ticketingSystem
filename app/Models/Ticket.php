@@ -67,7 +67,7 @@ class Ticket extends Model
 
     public function statuses(): HasMany
     {
-        return $this->hasMany(Status::class, 'ticket_id', 'id');
+        return $this->hasMany(Status::class, 'ticket_id', 'id')->oldest();
     }
 
     public function currentStatus(): hasOne
